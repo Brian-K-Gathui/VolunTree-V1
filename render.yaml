@@ -1,0 +1,26 @@
+# render.yaml - Render Deployment Configuration
+
+services:
+  - name: voluntree-backend
+    type: web
+    runtime: python
+    buildCommand: |
+      pipenv install --deploy  # Install only locked dependencies
+      flask db upgrade  # Run database migrations before starting the app
+    startCommand: "pipenv run gunicorn -w 4 -b 0.0.0.0:8080 server.app:app"
+    envVars:
+      - key: DATABASE_URL
+        sync: false  # Ensure this is set in the Render dashboard
+      - key: SECRET_KEY
+        sync: false
+      - key: FLASK_ENV
+        value: "production"
+
+  - name: voluntree-frontend
+    type: web
+    runtime: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "serve -s build -l 10000"
+    envVars:
+      - key: REACT_APP_API_BASE_URL
+        sync: false
