@@ -6,7 +6,7 @@ const UnderConstruction = () => {
         <div className="dashboard-container">
             <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
                 <div className="col-md-12 text-center">
-                    <h1>🚧 Under Construction 🚧</h1>
+                    <h1>🚧 Events Under Construction 🚧</h1>
                     <h2>We're working on something awesome!</h2>
                     <p>Stay tuned while we build this page.</p>
                 </div>
