@@ -1,10 +1,10 @@
 from flask import request
 from flask_restful import Resource
-from server.controllers.organization_controller import get_all_organization, get_organization_by_id, create_organization, update_organization, delete_organization
+from server.controllers.organization_controller import get_all_organizations, get_organization_by_id, create_organization, update_organization, delete_organization
 
 class OrganizationResource(Resource):
     def get(self):
-        organizations, status_code = get_all_organization()
+        organizations, status_code = get_all_organizations()
         return organizations, status_code
 
     def post(self):
