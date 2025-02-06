@@ -27,8 +27,9 @@ metadata = MetaData(naming_convention={
 
 # Initialize database and migration support
 db = SQLAlchemy(metadata=metadata)
-db.init_app(app)
 migrate = Migrate(app, db)
+db.init_app(app)
+
 
 
 # Enable CORS for API requests from the frontend
