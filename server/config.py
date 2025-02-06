@@ -27,8 +27,9 @@ metadata = MetaData(naming_convention={
 
 # Initialize database and migration support
 db = SQLAlchemy(metadata=metadata)
-migrate = Migrate(app, db)
 db.init_app(app)
+migrate = Migrate(app, db)
+
 
 # Enable CORS for API requests from the frontend
 CORS(app, resources={r"/api/*": {"origins": "https://voluntree-dzzv.onrender.com"}})
