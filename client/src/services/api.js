@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://voluntree-backend.onrender.com/api";
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://voluntree-backend.onrender.com/";
 
 // Fetch data from API
 export const fetchData = async (endpoint) => {
