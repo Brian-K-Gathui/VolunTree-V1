@@ -11,10 +11,10 @@ fake = Faker()
 if __name__ == '__main__':
     with app.app_context():
         print("🚀 Starting seed process...")
-        print("_____________________________________________\n")
+        print("\n")
 
         # Clearing old data
-        print("_____________________________________________\n")
+        print("\n")
         print("🗑️  Clearing old data...")
         db.session.query(event_volunteers).delete()
         db.session.query(Task).delete()
@@ -24,10 +24,10 @@ if __name__ == '__main__':
         db.session.query(Admin).delete()
         db.session.commit()
         print("✅ Old data cleared!")
-        print("_____________________________________________\n")
+        print("\n")
 
         # Seeding Admins
-        print("_____________________________________________\n")
+        print("\n")
         print("👨‍💼 Seeding admin users...")
         admin_users = [
             Admin(
@@ -55,10 +55,10 @@ if __name__ == '__main__':
         db.session.add_all(admin_users)
         db.session.commit()
         print(f"✅ Seeded {len(admin_users)} admin users!")
-        print("_____________________________________________\n")
+        print("\n")
 
         # Seeding Organizers
-        print("_____________________________________________\n")
+        print("\n")
         print("🏢 Seeding organizers...")
         organizers = []
         for _ in range(5):
@@ -72,7 +72,7 @@ if __name__ == '__main__':
         db.session.add_all(organizers)
         db.session.commit()
         print(f"✅ Seeded {len(organizers)} organizers!")
-        print("_____________________________________________\n")
+        print("\n")
 
         # Seeding Events
         print("📅 Seeding events...")
@@ -88,7 +88,7 @@ if __name__ == '__main__':
         db.session.add_all(events)
         db.session.commit()
         print(f"✅ Seeded {len(events)} events!")
-        print("_____________________________________________\n")
+        print("\n")
 
         # Seeding Volunteers
         print("🙋 Seeding volunteers...")
@@ -103,7 +103,7 @@ if __name__ == '__main__':
         db.session.add_all(volunteers)
         db.session.commit()
         print(f"✅ Seeded {len(volunteers)} volunteers!")
-        print("_____________________________________________\n")
+        print("\n")
 
         # Assigning Volunteers to Events
         print("🔗 Assigning volunteers to events...")
@@ -117,7 +117,7 @@ if __name__ == '__main__':
         db.session.execute(event_volunteers.insert(), event_volunteer_entries)
         db.session.commit()
         print(f"✅ Assigned volunteers to {len(event_volunteer_entries)} event-volunteer entries!")
-        print("_____________________________________________\n")
+        print("\n")
 
         # Seeding Tasks
         print("📝 Seeding tasks...")
@@ -135,7 +135,7 @@ if __name__ == '__main__':
         db.session.add_all(tasks)
         db.session.commit()
         print(f"✅ Seeded {len(tasks)} tasks!")
-        print("_____________________________________________\n")
+        print("\n")
 
         print("🎉 SEEDING PROCESS COMPLETED SUCCESSFULLY! 🚀")
-        print("_____________________________________________\n")
+        print("\n")

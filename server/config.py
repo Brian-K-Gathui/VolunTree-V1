@@ -24,9 +24,9 @@ migrate = Migrate(app, db)
 db.init_app(app)
 
 CORS(app, resources={r"/api/*": {"origins": "https://voluntree-dzzv.onrender.com"}})
-print("\n_____________________________________________\n")
+print("\n")
 print("✅ Flask app configured successfully!")
-print("_____________________________________________\n")
+print("\n")
 
 if __name__ == "__main__":
     print("Run `flask db migrate && flask db upgrade` manually when needed.")
