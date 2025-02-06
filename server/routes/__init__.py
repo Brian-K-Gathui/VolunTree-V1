@@ -1,7 +1,7 @@
 from flask_restful import Api
 from server.routes.admin_routes import AdminSignup, AdminLogin, AdminProfile
 from server.routes.event_routes import EventResource, EventByIdResource
-from server.routes.organizer_routes import OrganizerResource, OrganizerByIdResource
+from server.routes.organization_routes import OrganizerResource, OrganizerByIdResource
 from server.routes.volunteer_routes import VolunteerResource, VolunteerByIdResource
 from server.routes.task_routes import TaskResource, TaskByIdResource
 

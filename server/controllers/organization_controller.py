@@ -3,7 +3,7 @@ from server.models import db, Organization
 def get_all_organizations():
     return [org.to_dict() for org in Organization.query.all()], 200
 
-def get_Organization_by_id(organization_id):
+def get_organization_by_id(organization_id):
     organization = Organization.query.get(organization_id)
     if not organization:
         return {"error": "Organization not found"}, 404
