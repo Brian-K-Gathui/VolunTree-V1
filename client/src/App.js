@@ -36,9 +36,9 @@ const App = () => {
                 <Route path="/signup" element={<SignUpAdmin />} />
                 <Route path="/admin/edit/:id" element={<EditAdmin />} />
                 
-                <Route path="/organizers" element={<OrganizationList />} />
-                <Route path="/organizers/create" element={<CreateOrganization />} />
-                <Route path="/organizers/edit/:id" element={<EditOrganization />} />
+                <Route path="/organization" element={<OrganizationList />} />
+                <Route path="/organization/create" element={<CreateOrganization />} />
+                <Route path="/organization/edit/:id" element={<EditOrganization />} />
 
                 <Route path="/volunteers" element={<VolunteerList />} />
                 <Route path="/volunteers/create" element={<CreateVolunteer />} />
