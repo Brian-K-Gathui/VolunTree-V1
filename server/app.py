@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
 import os
-from flask import Flask, jsonify
+from flask import jsonify
 from flask_cors import CORS
 from flask_restful import Api
 
 from .config import app
 from .routes import register_routes
 
-# Enable CORS for API requests
-CORS(app, resources={r"/api/*": {"origins": "https://voluntree-dzzv.onrender.com"}}, supports_credentials=True)
+# Enable CORS
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 
 # Initialize API
 api = Api(app)
@@ -26,4 +26,5 @@ def health_check():
     return jsonify({"message": "API is running!"}), 200
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    is_local = os.getenv("FLASK_ENV") == "development"
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=is_local)
