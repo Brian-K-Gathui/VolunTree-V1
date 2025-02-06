@@ -27,7 +27,7 @@ def update_organization(organization_id, data):
 
     for key, value in data.items():
         setattr(organization, key, value)
-    
+
     db.session.commit()
     return organization.to_dict(), 200
 

@@ -5,10 +5,10 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_restful import Api
 
-from server.config import app
-from server.routes import register_routes
+from .config import app
+from .routes import register_routes
 
-# Enable CORS
+# Enable CORS for API requests
 CORS(app, resources={r"/api/*": {"origins": "https://voluntree-dzzv.onrender.com"}}, supports_credentials=True)
 
 # Initialize API
@@ -20,7 +20,7 @@ register_routes(api)
 def home():
     return jsonify({"message": "Welcome to VolunTree API!"}), 200
 
-
+# Health check endpoint
 @app.route('/api/health')
 def health_check():
     return jsonify({"message": "API is running!"}), 200

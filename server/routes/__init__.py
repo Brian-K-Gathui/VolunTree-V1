@@ -7,7 +7,7 @@ from server.routes.task_routes import TaskResource, TaskByIdResource
 
 def register_routes(api: Api):
     api.add_resource(OrganizationResource, '/api/organizations')
-    api.add_resource(OrganizationByIdResource, '/api/organizations/<int:organizer_id>')
+    api.add_resource(OrganizationByIdResource, '/api/organizations/<int:organization_id>')
 
     api.add_resource(EventResource, '/api/events')
     api.add_resource(EventByIdResource, '/api/events/<int:event_id>')

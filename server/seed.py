@@ -3,7 +3,7 @@ from random import randint, choice as rc
 from faker import Faker
 from werkzeug.security import generate_password_hash
 
-from app import app
+from config import app
 from models import db, Organizer, Event, Volunteer, Task, event_volunteers, Admin
 
 fake = Faker()

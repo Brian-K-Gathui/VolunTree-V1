@@ -23,10 +23,8 @@ db = SQLAlchemy(metadata=metadata)
 migrate = Migrate(app, db)
 db.init_app(app)
 
+# Enable CORS globally
 CORS(app, resources={r"/api/*": {"origins": "https://voluntree-dzzv.onrender.com"}})
 print("\n")
 print("✅ Flask app configured successfully!")
 print("\n")
-
-if __name__ == "__main__":
-    print("Run `flask db migrate && flask db upgrade` manually when needed.")
