@@ -1,4 +1,3 @@
-// OrganizationList.js
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchData, deleteData } from "../../services/api";
@@ -15,7 +14,6 @@ export default function OrganizationList() {
       setLoading(true);
       try {
         const data = await fetchData("organizations");
-        // If the API returns null (due to an error), ensure organizations is an empty array.
         if (data === null) {
           setError("Failed to fetch organizations. Please try again.");
           setOrganizations([]);
@@ -32,12 +30,16 @@ export default function OrganizationList() {
     getOrganizations();
   }, []);
 
-  // Calculate pagination values safely (organizations is always an array now)
-  const totalPages = Math.ceil(organizations.length / itemsPerPage);
-  const paginatedOrganizations = organizations.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  // Ensure totalPages is at least 1 so that the table and pagination controls render correctly
+  const totalPages =
+    organizations.length > 0 ? Math.ceil(organizations.length / itemsPerPage) : 1;
+  const paginatedOrganizations =
+    organizations.length > 0
+      ? organizations.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        )
+      : [];
 
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -64,79 +66,88 @@ export default function OrganizationList() {
         <strong>Organizations</strong>
       </h1>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p className="text-danger">{error}</p>
-      ) : (
-        <>
-          <div className="row mb-3">
-            <div className="col">
-              <Link className="btn btn-primary me-3" to="/organizations/create">
-                Add New Organization
-              </Link>
-            </div>
-          </div>
+      <div className="row mb-3">
+        <div className="col">
+          <Link className="btn btn-primary me-3" to="/organizations/create">
+            Add New Organization
+          </Link>
+        </div>
+      </div>
 
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Contact Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Actions</th>
+      {/* Show error message if there is one */}
+      {error && <p className="text-danger">{error}</p>}
+
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Contact Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading ? (
+            <tr>
+              <td colSpan="6" className="text-center">
+                Loading...
+              </td>
+            </tr>
+          ) : paginatedOrganizations.length > 0 ? (
+            paginatedOrganizations.map((org) => (
+              <tr key={org.id}>
+                <td>{org.id}</td>
+                <td>{org.name}</td>
+                <td>{org.contact_name}</td>
+                <td>{org.contact_phone}</td>
+                <td>{org.contact_email}</td>
+                <td>
+                  <Link
+                    className="btn btn-warning btn-sm me-2"
+                    to={`/organizations/edit/${org.id}`}
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(org.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {paginatedOrganizations.map((org) => (
-                <tr key={org.id}>
-                  <td>{org.id}</td>
-                  <td>{org.name}</td>
-                  <td>{org.contact_name}</td>
-                  <td>{org.contact_phone}</td>
-                  <td>{org.contact_email}</td>
-                  <td>
-                    <Link
-                      className="btn btn-warning btn-sm me-2"
-                      to={`/organizations/edit/${org.id}`}
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(org.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6" className="text-center">
+                No organizations found.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
 
-          <div className="d-flex justify-content-between">
-            <button
-              className="btn btn-secondary"
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              className="btn btn-secondary"
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </button>
-          </div>
-        </>
-      )}
+      <div className="d-flex justify-content-between">
+        <button
+          className="btn btn-secondary"
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="btn btn-secondary"
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
