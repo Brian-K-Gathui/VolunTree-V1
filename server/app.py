@@ -9,7 +9,7 @@ from .config import app
 from .routes import register_routes
 
 # Enable CORS
-CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
+CORS(app, resources={r"/api/*": {"origins": "*"}})  # Temporarily allow all requests
 
 # Initialize API
 api = Api(app)
