@@ -25,7 +25,7 @@ const CreateOrganization = () => {
         }),
         onSubmit: async (values, { setSubmitting }) => {
             try {
-                await postData("organizers", values);
+                await postData("organizations", values);
                 navigate("/organizations"); 
             } catch (error) {
                 console.error("Error creating organization:", error);
