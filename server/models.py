@@ -50,9 +50,9 @@ class Admin(db.Model, SerializerMixin):
         return f'<Admin {self.id}: {self.username}>'
 
 
-class Organizer(db.Model, SerializerMixin):
+class Organization(db.Model, SerializerMixin):
     """
-    Organizer Model: Represents an organization that hosts volunteer-driven events.
+    Organization Model: Represents an organization that hosts volunteer-driven events.
 
     Attributes:
     - `id` (Integer, Primary Key)
@@ -62,10 +62,10 @@ class Organizer(db.Model, SerializerMixin):
     - `contact_email` (String, Unique contact email)
 
     Relationships:
-    - One-to-Many with `Event` (An Organizer can host multiple events)
+    - One-to-Many with `Event` (An Organization can host multiple events)
     """
 
-    __tablename__ = 'organizers'
+    __tablename__ = 'organizations'
     serialize_rules = ('-events',)
 
     id = db.Column(db.Integer, primary_key=True)
@@ -74,7 +74,7 @@ class Organizer(db.Model, SerializerMixin):
     contact_phone = db.Column(db.String(20), nullable=False)
     contact_email = db.Column(db.String(120), nullable=False, unique=True)
 
-    events = db.relationship('Event', back_populates='organizer', cascade='all, delete-orphan')
+    events = db.relationship('Event', back_populates='organization', cascade='all, delete-orphan')
 
     @validates('name', 'contact_name', 'contact_phone', 'contact_email')
     def validate_not_empty(self, key, value):
@@ -86,7 +86,7 @@ class Organizer(db.Model, SerializerMixin):
         return value
 
     def __repr__(self):
-        return f'<Organizer {self.id}: {self.name}>'
+        return f'<Organization {self.id}: {self.name}>'
 
 
 class Event(db.Model, SerializerMixin):
@@ -98,24 +98,24 @@ class Event(db.Model, SerializerMixin):
     - `name` (String, Event name)
     - `date` (Date, Event date)
     - `location` (String, Event location)
-    - `organizer_id` (Foreign Key, References `Organizer.id`)
+    - `organization_id` (Foreign Key, References `Organization.id`)
 
     Relationships:
-    - Many-to-One with `Organizer` (Each event is associated with one organizer)
+    - Many-to-One with `Organization` (Each event is associated with one organization)
     - One-to-Many with `Task` (An Event can have multiple tasks)
     - Many-to-Many with `Volunteer` (Volunteers can participate in multiple events)
     """
 
     __tablename__ = 'events'
-    serialize_rules = ('-organizer.events', '-tasks.event', '-volunteers.events')
+    serialize_rules = ('-organization.events', '-tasks.event', '-volunteers.events')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     date = db.Column(db.Date, nullable=False)
     location = db.Column(db.String(255), nullable=False)
-    organizer_id = db.Column(db.Integer, db.ForeignKey('organizers.id'), nullable=False)
+    organization_id = db.Column(db.Integer, db.ForeignKey('organizations.id'), nullable=False)
 
-    organizer = db.relationship('Organizer', back_populates='events')
+    organization = db.relationship('Organization', back_populates='events')
     tasks = db.relationship('Task', back_populates='event', cascade='all, delete-orphan')
     volunteers = db.relationship('Volunteer', secondary='event_volunteers', back_populates='events')
 
