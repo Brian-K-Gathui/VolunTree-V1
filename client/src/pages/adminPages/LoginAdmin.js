@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {postData} from "../../services/api";
+import { postData } from "../../services/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ const Login = () => {
           name="username"
           placeholder="Username"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.username}
           className="form-control"
         />
@@ -45,12 +46,23 @@ const Login = () => {
           name="password"
           placeholder="Password"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.password}
           className="form-control"
         />
         {formik.errors.password && formik.touched.password && (
           <div className="error">{formik.errors.password}</div>
         )}
+
+        {/* Link to the Sign-Up page */}
+        <div>
+          <p style={{ margin: "0 0 10px" }}>
+            Don't have a Admin account?{" "}
+            <Link to="/signup">
+              <strong>Sign-Up Here</strong>
+            </Link>
+          </p>
+        </div>
 
         <button type="submit" className="btn-primary">Login</button>
       </form>

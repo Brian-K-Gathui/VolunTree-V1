@@ -1,9 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { postData } from "../../services/api";
-
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -46,6 +45,7 @@ const SignUp = () => {
           name="first_name"
           placeholder="First Name"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.first_name}
           className="form-control"
         />
@@ -58,6 +58,7 @@ const SignUp = () => {
           name="last_name"
           placeholder="Last Name"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.last_name}
           className="form-control"
         />
@@ -70,6 +71,7 @@ const SignUp = () => {
           name="email"
           placeholder="Email"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.email}
           className="form-control"
         />
@@ -82,6 +84,7 @@ const SignUp = () => {
           name="username"
           placeholder="Username"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.username}
           className="form-control"
         />
@@ -94,12 +97,23 @@ const SignUp = () => {
           name="password"
           placeholder="Password"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.password}
           className="form-control"
         />
         {formik.errors.password && formik.touched.password && (
           <div className="error">{formik.errors.password}</div>
         )}
+
+        {/* Link to the Login page */}
+        <div>
+          <p style={{ margin: "0 0 10px" }}>
+            Already have an Admin account?{" "}
+            <Link to="/login">
+              <strong>Login Here</strong>
+            </Link>
+          </p>
+        </div>
 
         <button type="submit" className="btn-primary">Sign Up</button>
       </form>
