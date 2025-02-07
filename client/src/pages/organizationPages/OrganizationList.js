@@ -13,7 +13,7 @@ export default function OrganizationList() {
     async function getOrganizations() {
       setLoading(true);
       try {
-        const data = await fetchData("api/organizations");
+        const data = await fetchData("organizations");
         if (data === null) {
           setError("Failed to fetch organizations. Please try again.");
           setOrganizations([]);

@@ -26,7 +26,7 @@ const CreateOrganization = () => {
         }),
         onSubmit: async (values, { setSubmitting, setErrors }) => {
             try {
-                const response = await postData("api/organizations", values);
+                const response = await postData("organizations", values);
                 if (!response) {
                     setErrors({ general: "Failed to create organization. Please try again." });
                 } else {
