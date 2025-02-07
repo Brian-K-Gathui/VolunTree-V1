@@ -4,7 +4,7 @@ const Home = () => {
     return (
         <div className="dashboard-container">
             <div className="hero-section">
-                <h1><strong>Welcome👋🏿👋🏿</strong></h1>
+                <h1><strong>Welcome👋🏿👨🏿</strong></h1>
                 <p>
                 VolunTree is a full-stack platform designed to streamline every aspect of 
                 volunteer-driven charity events—from organization and volunteer registration 
