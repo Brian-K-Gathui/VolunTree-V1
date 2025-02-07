@@ -3,8 +3,8 @@ from random import randint, choice as rc
 from faker import Faker
 from werkzeug.security import generate_password_hash
 
-from config import app
-from models import db, Organizer, Event, Volunteer, Task, event_volunteers, Admin
+from .config import app
+from .models import db, Organization, Event, Volunteer, Task, event_volunteers, Admin
 
 fake = Faker()
 
@@ -21,7 +21,7 @@ if __name__ == '__main__':
         db.session.query(Task).delete()
         db.session.query(Event).delete()
         db.session.query(Volunteer).delete()
-        db.session.query(Organizer).delete()
+        db.session.query(Organization).delete()
         db.session.query(Admin).delete()
         db.session.commit()
         print("✅ Old data cleared!")
@@ -58,21 +58,21 @@ if __name__ == '__main__':
         print(f"✅ Seeded {len(admin_users)} admin users!")
         print("\n")
 
-        # Seeding Organizers
+        # Seeding Organizations
         print("\n")
-        print("🏢 Seeding organizers...")
-        organizers = []
+        print("🏢 Seeding organizations...")
+        organizations = []
         for _ in range(5):
-            organizer = Organizer(
+            organization = Organization(
                 name=fake.company(),
                 contact_name=fake.name(),
                 contact_phone=fake.phone_number(),
                 contact_email=fake.email()
             )
-            organizers.append(organizer)
-        db.session.add_all(organizers)
+            organizations.append(organization)
+        db.session.add_all(organizations)
         db.session.commit()
-        print(f"✅ Seeded {len(organizers)} organizers!")
+        print(f"✅ Seeded {len(organizations)} organizations!")
         print("\n")
 
         # Seeding Events
@@ -83,7 +83,7 @@ if __name__ == '__main__':
                 name=fake.catch_phrase(),
                 date=fake.date_between(start_date='-1y', end_date='+1y'),
                 location=fake.city(),
-                organizer_id=rc([org.id for org in organizers])
+                organization_id=rc([org.id for org in organizations])
             )
             events.append(event)
         db.session.add_all(events)
@@ -98,7 +98,7 @@ if __name__ == '__main__':
             volunteer = Volunteer(
                 name=fake.name(),
                 email=fake.email(),
-                phone=fake.phone_number()
+                phone=fake.phone_number()[:20]
             )
             volunteers.append(volunteer)
         db.session.add_all(volunteers)
@@ -137,6 +137,5 @@ if __name__ == '__main__':
         db.session.commit()
         print(f"✅ Seeded {len(tasks)} tasks!")
         print("\n")
-
         print("🎉 SEEDING PROCESS COMPLETED SUCCESSFULLY! 🚀")
         print("\n")

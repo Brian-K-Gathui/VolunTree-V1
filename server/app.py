@@ -5,7 +5,7 @@ from flask import jsonify
 from flask_cors import CORS
 from flask_restful import Api
 
-from .config import app
+from .config import app, db
 from .routes import register_routes
 
 # Enable CORS

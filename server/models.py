@@ -1,9 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
-# from sqlalchemy.ext.associationproxy import association_proxy  # Uncomment only if you need it
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from server.config import db
 
 
@@ -39,11 +37,9 @@ class Admin(db.Model, SerializerMixin):
     password_hash = db.Column(db.String(256), nullable=False)
 
     def set_password(self, password):
-        """Hashes and stores the admin's password."""
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        """Validates a given password against the stored hash."""
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
@@ -71,14 +67,13 @@ class Organization(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     contact_name = db.Column(db.String(255), nullable=False)
-    contact_phone = db.Column(db.String(20), nullable=False)
+    contact_phone = db.Column(db.String(50), nullable=False)
     contact_email = db.Column(db.String(120), nullable=False, unique=True)
 
     events = db.relationship('Event', back_populates='organization', cascade='all, delete-orphan')
 
     @validates('name', 'contact_name', 'contact_phone', 'contact_email')
     def validate_not_empty(self, key, value):
-        """Ensures that no field is left empty or contains only whitespace."""
         if not value.strip():
             raise ValueError(f'{key.capitalize()} cannot be empty')
         if key == 'contact_email' and '@' not in value:
@@ -121,7 +116,6 @@ class Event(db.Model, SerializerMixin):
 
     @validates('name', 'location')
     def validate_not_empty(self, key, value):
-        """Ensures that the event name and location are not empty."""
         if not value.strip():
             raise ValueError(f'{key.capitalize()} cannot be empty')
         return value
@@ -158,7 +152,6 @@ class Volunteer(db.Model, SerializerMixin):
 
     @validates('name', 'phone', 'email')
     def validate_not_empty(self, key, value):
-        """Ensures that no field is empty and validates email format."""
         if not value.strip():
             raise ValueError(f'{key.capitalize()} cannot be empty')
         if key == 'email' and '@' not in value:
@@ -202,7 +195,7 @@ class Task(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Task {self.id}: {self.title}>'
 
-
+# Association table for the many-to-many relationship between events and volunteers
 event_volunteers = db.Table(
     'event_volunteers',
     db.Column('event_id', db.Integer, db.ForeignKey('events.id'), primary_key=True),
