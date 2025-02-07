@@ -51,7 +51,7 @@ export default function OrganizationList() {
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this organization?")) {
-      const success = await deleteData("api/organizations", id);
+      const success = await deleteData("organizations", id);
       if (success) {
         setOrganizations((prevOrgs) => prevOrgs.filter((org) => org.id !== id));
       } else {
