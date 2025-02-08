@@ -16,7 +16,10 @@ metadata = MetaData(naming_convention={
 app = Flask(__name__)
 
 # Configure database connection (Uses environment variable or falls back to SQLite)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "postgresql://voluntree_render_database_user:HyuR31vsObtAsp4iWqSfTpyi4YR8LVMJ@dpg-cuh5ir3v2p9s73crh21g-a.oregon-postgres.render.com/voluntree_render_database")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+    "DATABASE_URL",
+    "postgresql://voluntree_render_database_user:HyuR31vsObtAsp4iWqSfTpyi4YR8LVMJ@dpg-cuh5ir3v2p9s73crh21g-a.oregon-postgres.render.com/voluntree_render_database?sslmode=require"
+)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "supersecretkey")

@@ -4,7 +4,7 @@ const BASE_URL = (process.env.REACT_APP_API_BASE_URL || "https://voluntree-backe
 // Fetch data from API
 export const fetchData = async (endpoint) => {
   try {
-    const res = await fetch(`${BASE_URL}/api/${endpoint}`);
+    const res = await fetch(`${BASE_URL}/${endpoint}`);
     if (!res.ok) {
       const errorText = await res.text();
       throw new Error(`Error ${res.status}: ${errorText}`);
