@@ -18,7 +18,9 @@ export default function OrganizationList() {
           setError("Failed to fetch organizations. Please try again.");
           setOrganizations([]);
         } else {
-          setOrganizations(data);
+          // Sort organizations by ID in descending order (newest first)
+          const sortedData = data.sort((a, b) => b.id - a.id);
+          setOrganizations(sortedData);
         }
       } catch (err) {
         console.error("Error fetching organizations:", err);
@@ -30,16 +32,10 @@ export default function OrganizationList() {
     getOrganizations();
   }, []);
 
-  // Ensure totalPages is at least 1 so that the table and pagination controls render correctly
-  const totalPages =
-    organizations.length > 0 ? Math.ceil(organizations.length / itemsPerPage) : 1;
-  const paginatedOrganizations =
-    organizations.length > 0
-      ? organizations.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-        )
-      : [];
+  const totalPages = organizations.length > 0 ? Math.ceil(organizations.length / itemsPerPage) : 1;
+  const paginatedOrganizations = organizations.length > 0
+    ? organizations.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+    : [];
 
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -62,9 +58,7 @@ export default function OrganizationList() {
 
   return (
     <div className="container my-4">
-      <h1 className="text-center mb-4">
-        <strong>Organizations</strong>
-      </h1>
+      <h1 className="text-center mb-4"><strong>Organizations</strong></h1>
 
       <div className="row mb-3">
         <div className="col">
@@ -74,7 +68,6 @@ export default function OrganizationList() {
         </div>
       </div>
 
-      {/* Show error message if there is one */}
       {error && <p className="text-danger">{error}</p>}
 
       <table className="table table-striped">
@@ -91,9 +84,7 @@ export default function OrganizationList() {
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan="6" className="text-center">
-                Loading...
-              </td>
+              <td colSpan="6" className="text-center">Loading...</td>
             </tr>
           ) : paginatedOrganizations.length > 0 ? (
             paginatedOrganizations.map((org) => (
@@ -104,16 +95,10 @@ export default function OrganizationList() {
                 <td>{org.contact_phone}</td>
                 <td>{org.contact_email}</td>
                 <td>
-                  <Link
-                    className="btn btn-warning btn-sm me-2"
-                    to={`/organizations/edit/${org.id}`}
-                  >
+                  <Link className="btn btn-warning btn-sm me-2" to={`/organizations/edit/${org.id}`}>
                     Edit
                   </Link>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(org.id)}
-                  >
+                  <button className="btn btn-danger btn-sm" onClick={() => handleDelete(org.id)}>
                     Delete
                   </button>
                 </td>
@@ -121,30 +106,18 @@ export default function OrganizationList() {
             ))
           ) : (
             <tr>
-              <td colSpan="6" className="text-center">
-                No organizations found.
-              </td>
+              <td colSpan="6" className="text-center">No organizations found.</td>
             </tr>
           )}
         </tbody>
       </table>
 
       <div className="d-flex justify-content-between">
-        <button
-          className="btn btn-secondary"
-          onClick={handlePrevPage}
-          disabled={currentPage === 1}
-        >
+        <button className="btn btn-secondary" onClick={handlePrevPage} disabled={currentPage === 1}>
           Previous
         </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className="btn btn-secondary"
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-        >
+        <span>Page {currentPage} of {totalPages}</span>
+        <button className="btn btn-secondary" onClick={handleNextPage} disabled={currentPage === totalPages}>
           Next
         </button>
       </div>
