@@ -111,9 +111,15 @@ const CreateOrganization = () => {
                             )}
                         </div>
 
-                        <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>
-                            {formik.isSubmitting ? "Creating..." : "Create Organization"}
-                        </button>
+                        <div className="d-flex justify-content-between">
+                            <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>
+                                {formik.isSubmitting ? "Creating..." : "Create Organization"}
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={() => navigate("/organizations")}>
+                                Cancel
+                            </button>
+                            
+                        </div>
                     </form>
                 </div>
             </div>
