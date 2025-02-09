@@ -6,18 +6,18 @@ from server.routes.volunteer_routes import VolunteerResource, VolunteerByIdResou
 from server.routes.task_routes import TaskResource, TaskByIdResource
 
 def register_routes(api: Api):
-    api.add_resource(OrganizationResource, '/organizations')
-    api.add_resource(OrganizationByIdResource, '/organizations/<int:organization_id>')
+    api.add_resource(OrganizationResource, '/api/organizations')
+    api.add_resource(OrganizationByIdResource, '/api/organizations/<int:organization_id>')
 
-    api.add_resource(EventResource, '/events')
-    api.add_resource(EventByIdResource, '/events/<int:event_id>')
+    api.add_resource(EventResource, '/api/events')
+    api.add_resource(EventByIdResource, '/api/events/<int:event_id>')
 
-    api.add_resource(VolunteerResource, '/volunteers')
-    api.add_resource(VolunteerByIdResource, '/volunteers/<int:volunteer_id>')
+    api.add_resource(VolunteerResource, '/api/volunteers')
+    api.add_resource(VolunteerByIdResource, '/api/volunteers/<int:volunteer_id>')
 
-    api.add_resource(TaskResource, '/tasks')
-    api.add_resource(TaskByIdResource, '/tasks/<int:task_id>')
+    api.add_resource(TaskResource, '/api/tasks')
+    api.add_resource(TaskByIdResource, '/api/tasks/<int:task_id>')
 
-    api.add_resource(AdminSignup, '/signup')
-    api.add_resource(AdminLogin, '/login')
-    api.add_resource(AdminProfile, '/profile')
+    api.add_resource(AdminSignup, '/api/signup')
+    api.add_resource(AdminLogin, '/api/login')
+    api.add_resource(AdminProfile, '/api/profile')
