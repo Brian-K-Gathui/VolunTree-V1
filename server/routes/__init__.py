@@ -15,6 +15,7 @@ def register_routes(api: Api):
     api.add_resource(VolunteerResource, '/api/volunteers')
     api.add_resource(VolunteerByIdResource, '/api/volunteers/<int:volunteer_id>')
 
+
     api.add_resource(TaskResource, '/api/tasks')
     api.add_resource(TaskByIdResource, '/api/tasks/<int:task_id>')
 
