@@ -19,7 +19,7 @@ export const fetchData = async (endpoint) => {
 // POST request (Create)
 export const postData = async (endpoint, data) => {
   try {
-    const res = await fetch(`${BASE_URL}/api/${endpoint}`, {
+    const res = await fetch(`${BASE_URL}${endpoint}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -38,7 +38,7 @@ export const postData = async (endpoint, data) => {
 // PATCH request (Update)
 export const updateData = async (endpoint, id, data) => {
   try {
-    const res = await fetch(`${BASE_URL}/api/${endpoint}/${id}`, {
+    const res = await fetch(`${BASE_URL}${endpoint}/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -57,7 +57,7 @@ export const updateData = async (endpoint, id, data) => {
 // DELETE request
 export const deleteData = async (endpoint, id) => {
   try {
-    const res = await fetch(`${BASE_URL}/api/${endpoint}/${id}`, { method: "DELETE" });
+    const res = await fetch(`${BASE_URL}${endpoint}/${id}`, { method: "DELETE" });
     if (!res.ok) {
       const errorText = await res.text();
       throw new Error(`Error ${res.status}: ${errorText}`);
