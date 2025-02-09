@@ -14,7 +14,7 @@ const Navbar = () => {
             <h2><strong>VolunTree🌳</strong></h2>
           ) : (
             <img
-              src="/logo.png"
+              src="#"
               alt="VolunTree Logo"
               width="250"
               className="me-2"

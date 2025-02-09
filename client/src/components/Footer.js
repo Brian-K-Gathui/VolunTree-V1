@@ -17,7 +17,7 @@ export default function Footer() {
               <h1 className="fs-4"><strong>VolunTree🌳</strong></h1>
             ) : (
               <img
-                src="/voluntree_logo.png" // <-- Update this path to your actual logo
+                src="#" // <-- Update this path to your actual logo
                 alt="VolunTree Logo"
                 width="200"
                 className="me-2"
