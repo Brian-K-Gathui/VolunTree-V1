@@ -150,6 +150,7 @@ class Volunteer(db.Model, SerializerMixin):
     events = db.relationship('Event', secondary='event_volunteers', back_populates='volunteers')
     tasks = db.relationship('Task', back_populates='volunteer', cascade='all, delete-orphan')
 
+
     @validates('name', 'phone', 'email')
     def validate_not_empty(self, key, value):
         if not value.strip():
@@ -157,6 +158,15 @@ class Volunteer(db.Model, SerializerMixin):
         if key == 'email' and '@' not in value:
             raise ValueError('Invalid email format')
         return value
+
+    def serialize(self):
+        """Convert Volunteer object to a dictionary."""
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'phone': self.phone
+        }
 
     def __repr__(self):
         return f'<Volunteer {self.id}: {self.name}>'
